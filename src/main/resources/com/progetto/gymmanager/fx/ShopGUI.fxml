@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20.0" alignment="TOP_CENTER" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.gymmanager.view.fx.ShopGUIController">
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Label text="SUPPLEMENT SHOP" style="-fx-font-size: 24px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+
+    <HBox spacing="30.0" alignment="CENTER" VBox.vgrow="ALWAYS">
+        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+            <Label text="Prodotti Disponibili" style="-fx-font-size: 14px;"/>
+            <ListView fx:id="prodottiListView" VBox.vgrow="ALWAYS"/>
+            <Button text="AGGIUNGI AL CARRELLO" onAction="#aggiungiAlCarrello" prefWidth="350" prefHeight="35"/>
+        </VBox>
+
+        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+            <Label text="Il tuo Carrello" style="-fx-font-size: 14px;"/>
+            <ListView fx:id="carrelloListView" VBox.vgrow="ALWAYS"/>
+            <Label fx:id="totaleLabel" text="Totale: 0.00€" style="-fx-font-size: 18px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="15.0" alignment="CENTER">
+        <TextField fx:id="codiceScontoField" promptText="Codice Sconto" prefWidth="150" prefHeight="35"/>
+        <Button text="APPLICA" onAction="#applicaSconto" prefHeight="35"/>
+    </HBox>
+
+    <HBox spacing="20.0" alignment="CENTER">
+        <Button text="TORNA ALLA HOME" onAction="#tornaHome" prefWidth="180" prefHeight="40" style="-fx-background-color: #333333; -fx-text-fill: white;"/>
+        <Button text="CONFERMA E PAGA" onAction="#finalizzaAcquisto" prefWidth="180" prefHeight="40" style="-fx-background-color: #11caa0; -fx-text-fill: black;"/>
+    </HBox>
+</VBox>

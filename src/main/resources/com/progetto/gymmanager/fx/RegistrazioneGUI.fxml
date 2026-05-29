@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="15.0" styleClass="root" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.gymmanager.view.fx.RegistrationGUIController">
+    <padding><Insets bottom="20" left="40" right="40" top="20"/></padding>
+
+    <Label text="CREA IL TUO ACCOUNT" style="-fx-font-size: 24px; -fx-text-fill: #deff9a;"/>
+
+    <GridPane hgap="10" vgap="15" alignment="CENTER">
+        <TextField fx:id="nickField" promptText="Nickname" prefWidth="200" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="emailField" promptText="Email" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <PasswordField fx:id="passField" promptText="Password" prefWidth="200" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <DatePicker fx:id="nascitaPicker" promptText="Data di Nascita" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <TextField fx:id="indirizzoField" promptText="Via / Indirizzo" prefWidth="200" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="telefonoField" promptText="Numero di Telefono" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    </GridPane>
+
+    <Button text="REGISTRATI COME ABBONATO" onAction="#handleRegistration" prefWidth="410" prefHeight="40" style="-fx-background-color: #11caa0; -fx-text-fill: black;"/>
+    <Button text="ANNULLA / TORNA AL LOGIN" onAction="#goToLogin" prefWidth="410" prefHeight="35" style="-fx-background-color: #333; -fx-text-fill: white;"/>
+</VBox>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20.0" alignment="TOP_CENTER" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.gymmanager.view.fx.CorsiGUIController">
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Label text="PRENOTAZIONE CORSI" style="-fx-font-size: 24px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+    <Label text="Seleziona un corso per iscriverti o rimuovere la tua prenotazione" style="-fx-font-size: 14px; -fx-text-fill: #f5f5f5;"/>
+
+    <ListView fx:id="corsiListView" maxWidth="500" VBox.vgrow="ALWAYS"/>
+
+    <HBox spacing="15.0" alignment="CENTER">
+        <Button text="ISCRIVITI AL CORSO" onAction="#prenotaCorso" prefWidth="200" prefHeight="40" style="-fx-background-color: #11caa0; -fx-text-fill: black; -fx-font-weight: bold;"/>
+        <Button text="ANNULLA ISCRIZIONE" onAction="#disdiciPrenotazione" prefWidth="200" prefHeight="40" style="-fx-background-color: #ff4444; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <Button text="TORNA ALLA HOME" onAction="#tornaHome" prefWidth="415" prefHeight="35" style="-fx-background-color: #333333; -fx-text-fill: white;"/>
+</VBox>

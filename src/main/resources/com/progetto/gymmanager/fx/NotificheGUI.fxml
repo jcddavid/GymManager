@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20.0" alignment="TOP_CENTER" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.gymmanager.view.fx.NotificheGUIController">
+    <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+    <Label text="LE TUE NOTIFICHE" style="-fx-font-size: 24px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+    <ListView fx:id="notificheListView" maxWidth="500" VBox.vgrow="ALWAYS"/>
+    <Button text="TORNA ALLA HOME" onAction="#tornaHome" prefWidth="200" prefHeight="40"/>
+</VBox>

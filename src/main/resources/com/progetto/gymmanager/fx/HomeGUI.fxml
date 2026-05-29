@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="TOP_CENTER" spacing="25.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.gymmanager.view.fx.HomeGUIController">
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="40.0"/>
+    </padding>
+
+    <HBox alignment="CENTER" spacing="10">
+        <Label text="GYMMANAGER DASHBOARD" style="-fx-font-size: 26px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+        <StackPane>
+            <Button text="NOTIFICHE" onAction="#goToNotifiche" style="-fx-background-color: #333; -fx-text-fill: white;"/>
+            <Label fx:id="badgeNotifiche" style="-fx-background-color: red; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 2 6 2 6;" text="0" StackPane.alignment="TOP_RIGHT" visible="false"/>
+        </StackPane>
+    </HBox>
+
+    <Label fx:id="welcomeLabel" text="Benvenuto" style="-fx-font-size: 18px;"/>
+
+    <GridPane alignment="CENTER" hgap="20" vgap="20" VBox.vgrow="ALWAYS">
+        <Button text="MODIFICA PROFILO" onAction="#goToProfilo" prefWidth="200" prefHeight="80" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Button fx:id="btnQr" text="GENERA QR ACCESSO" onAction="#handleQrCode" prefWidth="200" prefHeight="80" GridPane.columnIndex="1" GridPane.rowIndex="3" visible="false"/>
+        <Button fx:id="btnCorsiAbbonato" text="PRENOTA CORSI" onAction="#goToCorsi" prefWidth="200" prefHeight="80" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Button fx:id="btnGestioneCorsi" text="GESTIONE CORSI (ISTRUTTORE)" onAction="#goToGestioneCorsi" prefWidth="200" prefHeight="80" GridPane.columnIndex="0" GridPane.rowIndex="0" visible="false"/>
+
+        <Button text="SHOP INTEGRATORI" onAction="#goToShop" prefWidth="200" prefHeight="80" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Button text="MIA SCHEDA ALLENAMENTO" onAction="#goToScheda" prefWidth="200" prefHeight="80" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Button text="PRENOTA VISITA MEDICA" onAction="#goToVisita" prefWidth="200" prefHeight="80" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Button fx:id="btnCreaScheda" text="AREA SCHEDE (ISTRUTTORE)" onAction="#goToCreaScheda" prefWidth="420" prefHeight="60" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" visible="false" managed="false"/>
+        <Button fx:id="btnAbbonamento" text="GESTIONE ABBONAMENTO" onAction="#goToAbbonamento" prefWidth="420" prefHeight="60" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" visible="false" managed="false"/>
+
+        <Button fx:id="btnAmministratore" text="PANNELLO AMMINISTRATORE" onAction="#goToAmministratore" prefWidth="420" prefHeight="60" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2" visible="false" managed="false" style="-fx-background-color: #ffaa00; -fx-text-fill: black; -fx-font-weight: bold;"/>
+    </GridPane>
+
+    <Button text="LOGOUT" onAction="#handleLogout" prefWidth="150" prefHeight="35" style="-fx-background-color: #ff4444; -fx-text-fill: white;"/>
+</VBox>

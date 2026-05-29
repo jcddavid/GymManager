@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15.0" alignment="TOP_CENTER" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.gymmanager.view.fx.SchedaGUIController">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <Label text="LE TUE SCHEDE DI ALLENAMENTO" style="-fx-font-size: 22px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10.0" alignment="CENTER" maxWidth="700">
+        <ComboBox fx:id="schedaComboBox" promptText="Seleziona scheda..." prefWidth="220" onAction="#caricaSchedaSelezionata"/>
+        <Button text="NUOVA PERSONALE" onAction="#creaPersonale" style="-fx-background-color: #deff9a; -fx-text-fill: black; -fx-font-weight: bold;"/>
+        <Button text="RINOMINA" onAction="#rinominaScheda" style="-fx-background-color: #ffaa00; -fx-text-fill: black; -fx-font-weight: bold;"/>
+        <Button text="ELIMINA" onAction="#eliminaScheda" style="-fx-background-color: #ff4444; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <Label fx:id="istruttoreLabel" text="Istruttore: -" style="-fx-font-size: 14px; -fx-font-style: italic;"/>
+
+    <HBox spacing="10.0" alignment="CENTER" maxWidth="550">
+        <TextField fx:id="esercizioField" promptText="Esercizio" HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="serieField" promptText="Serie" prefWidth="50"/>
+        <TextField fx:id="repsField" promptText="Reps" prefWidth="50"/>
+        <TextField fx:id="caricoField" promptText="Carico" prefWidth="70"/>
+        <Button text="+" onAction="#aggiungiEsercizio" style="-fx-background-color: #deff9a; -fx-text-fill: black; -fx-font-weight: bold;"/>
+        <Button text="-" onAction="#rimuoviEsercizio" style="-fx-background-color: #ff4444; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <ListView fx:id="eserciziListView" maxWidth="550" VBox.vgrow="ALWAYS"/>
+
+    <HBox spacing="15.0" alignment="CENTER" maxWidth="550">
+        <Button text="GUARDA VIDEO ESECUZIONE" onAction="#guardaEsecuzione" prefWidth="265" prefHeight="35" style="-fx-background-color: #11caa0; -fx-text-fill: black;"/>
+        <Button text="SALVA LE TUE MODIFICHE" onAction="#salvaModifiche" prefWidth="265" prefHeight="35" style="-fx-background-color: green; -fx-text-fill: white;"/>
+    </HBox>
+
+    <VBox spacing="5.0" maxWidth="550" alignment="TOP_LEFT">
+        <Label text="Oppure richiedi una NUOVA scheda all'istruttore:" style="-fx-font-size: 14px;"/>
+        <HBox spacing="10">
+            <TextField fx:id="nomeNuovaSchedaField" promptText="Nome Scheda (es. Massa Estiva)" prefWidth="200"/>
+            <TextField fx:id="noteNuovaSchedaField" promptText="Obiettivi / Note" HBox.hgrow="ALWAYS"/>
+            <Button text="INVIA RICHIESTA" onAction="#richiediNuovaScheda"/>
+        </HBox>
+    </VBox>
+
+    <Button text="TORNA ALLA HOME" onAction="#tornaHome" prefWidth="200" prefHeight="35" style="-fx-background-color: #333333; -fx-text-fill: white;"/>
+</VBox>

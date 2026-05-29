@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="TOP_CENTER" spacing="15.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.gymmanager.view.fx.CreaSchedaGUIController">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <Label text="AREA ISTRUTTORE - GESTIONE SCHEDE" style="-fx-font-size: 20px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+
+    <HBox spacing="20.0" alignment="CENTER" VBox.vgrow="ALWAYS">
+        <VBox spacing="5.0" prefWidth="280">
+            <Label text="Richieste Pendenti (Atleta - Nome Scheda):"/>
+            <ListView fx:id="richiesteListView" onMouseClicked="#selezionaRichiesta" VBox.vgrow="ALWAYS"/>
+        </VBox>
+
+        <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+            <HBox spacing="15.0">
+                <VBox spacing="5.0">
+                    <Label text="Nickname Abbonato:"/>
+                    <TextField fx:id="atletaField" promptText="Es. David" editable="false"/>
+                </VBox>
+                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                    <Label text="Nome della Scheda:"/>
+                    <TextField fx:id="nomeSchedaField" promptText="Es. Scheda Massa"/>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="10.0" alignment="CENTER">
+                <TextField fx:id="esercizioField" promptText="Esercizio" HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="serieField" promptText="Serie" prefWidth="60"/>
+                <TextField fx:id="repsField" promptText="Reps" prefWidth="60"/>
+                <TextField fx:id="caricoField" promptText="Carico" prefWidth="80"/>
+                <Button text="Aggiungi" onAction="#aggiungiEsercizio"/>
+            </HBox>
+
+            <ListView fx:id="eserciziListView" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="20.0" alignment="CENTER">
+        <Button text="Torna Home" onAction="#tornaHome" prefWidth="150" prefHeight="35"/>
+        <Button text="Salva ed Invia Scheda" onAction="#salvaScheda" prefWidth="200" prefHeight="35" style="-fx-background-color: green; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

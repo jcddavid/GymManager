@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="25.0" alignment="TOP_CENTER" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.gymmanager.view.fx.VisitaMedicaGUIController">
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Label text="VISITA MEDICA INTERNA" style="-fx-font-size: 24px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+
+    <Label fx:id="statoIdoneitaLabel" text="Stato Certificato: Verificando..." style="-fx-font-size: 16px;"/>
+
+    <GridPane alignment="CENTER" hgap="15" vgap="20" maxWidth="400">
+        <Label text="Scegli Giorno:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-size: 14px;"/>
+        <DatePicker fx:id="visitaDatePicker" onAction="#handleCaricaOrari" GridPane.columnIndex="1" GridPane.rowIndex="0" prefHeight="35" prefWidth="200"/>
+
+        <Label text="Scegli Orario:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-size: 14px;"/>
+        <ComboBox fx:id="orarioComboBox" promptText="Seleziona" GridPane.columnIndex="1" GridPane.rowIndex="1" prefHeight="35" prefWidth="200"/>
+    </GridPane>
+
+    <Button text="CONFERMA PRENOTAZIONE" onAction="#prenotaVisita" prefWidth="250" prefHeight="40" style="-fx-background-color: #11caa0; -fx-text-fill: black; -fx-font-weight: bold;"/>
+    <Button text="TORNA ALLA HOME" onAction="#tornaHome" prefWidth="250" prefHeight="35" style="-fx-background-color: #333333; -fx-text-fill: white;"/>
+</VBox>

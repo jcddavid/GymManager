@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="20.0" styleClass="root" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.gymmanager.view.fx.ProfiloGUIController">
+    <padding><Insets bottom="40" left="40" right="40" top="40"/></padding>
+
+    <Label text="MODIFICA IL TUO PROFILO" style="-fx-font-size: 26px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="15" vgap="15" alignment="CENTER">
+        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="emailField" prefWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="Indirizzo:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="indirizzoField" prefWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="Telefono:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="telefonoField" prefWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Label text="Data Nascita:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <DatePicker fx:id="nascitaPicker" prefWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    </GridPane>
+
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="ANNULLA" onAction="#tornaHome" prefWidth="150" style="-fx-background-color: #444; -fx-text-fill: white;"/>
+        <Button text="SALVA MODIFICHE" onAction="#handleSalva" prefWidth="180" style="-fx-background-color: #deff9a; -fx-text-fill: black;"/>
+    </HBox>
+</VBox>

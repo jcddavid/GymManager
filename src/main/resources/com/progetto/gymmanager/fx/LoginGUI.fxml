@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="25.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.gymmanager.view.fx.LoginGUIController">
+    <padding>
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
+    </padding>
+
+    <Label text="GYMMANAGER" style="-fx-font-size: 32px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+
+    <VBox spacing="15.0" alignment="CENTER" maxWidth="300">
+        <TextField fx:id="nicknameField" promptText="Nickname" prefHeight="40" style="-fx-background-color: #222; -fx-text-fill: white; -fx-border-radius: 5; -fx-background-radius: 5;"/>
+        <PasswordField fx:id="passwordField" promptText="Password" prefHeight="40" style="-fx-background-color: #222; -fx-text-fill: white; -fx-border-radius: 5; -fx-background-radius: 5;"/>
+
+        <Button text="ACCEDI" onAction="#handleLogin" prefWidth="300" prefHeight="45" style="-fx-background-color: #deff9a; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 10;"/>
+    </VBox>
+
+    <Hyperlink text="Non hai un account? Registrati ora" onAction="#goToRegistration" style="-fx-text-fill: #daffde; -fx-font-size: 14px;"/>
+</VBox>

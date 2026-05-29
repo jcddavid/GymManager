@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="25.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.gymmanager.view.fx.AbbonamentoGUIController">
+    <padding><Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/></padding>
+
+    <Label text="GESTIONE ABBONAMENTO" style="-fx-font-size: 26px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+
+    <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #2a2a2a; -fx-padding: 20; -fx-background-radius: 10;">
+        <Label text="Stato Attuale:" style="-fx-font-size: 16px; -fx-text-fill: #f5f5f5;"/>
+        <Label fx:id="statoLabel" text="Caricamento..." style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    </VBox>
+
+    <HBox spacing="20" alignment="CENTER">
+        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #333333; -fx-padding: 20; -fx-background-radius: 10;">
+            <Label text="TRIMESTRALE" style="-fx-font-size: 18px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+            <Label text="€99.99" style="-fx-font-size: 22px; -fx-text-fill: white;"/>
+            <Button text="RINNOVA 3 MESI" onAction="#rinnovaTrimestrale" style="-fx-background-color: #11caa0; -fx-text-fill: black;"/>
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #333333; -fx-padding: 20; -fx-background-radius: 10;">
+            <Label text="ANNUALE" style="-fx-font-size: 18px; -fx-text-fill: #deff9a; -fx-font-weight: bold;"/>
+            <Label text="€349.99" style="-fx-font-size: 22px; -fx-text-fill: white;"/>
+            <Button text="RINNOVA 12 MESI" onAction="#rinnovaAnnuale" style="-fx-background-color: green; -fx-text-fill: white;"/>
+        </VBox>
+    </HBox>
+
+    <Button text="TORNA ALLA HOME" onAction="#tornaHome" prefWidth="200" prefHeight="40" style="-fx-background-color: #555555; -fx-text-fill: white;"/>
+</VBox>
