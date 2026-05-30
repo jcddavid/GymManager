@@ -29,11 +29,11 @@ class TestShopController {
 
     @Test
     void testAcquistoSottoSogliaMinima() {
-        List<ProdottoShopBean> carrello = new ArrayList<>();
         ProdottoShopBean barretta = new ProdottoShopBean();
         barretta.setNome("Barretta");
-        barretta.setPrezzo(2.50); // Prezzo sotto i 5 euro minimi
-        carrello.add(barretta);
+        barretta.setPrezzo(2.50);
+
+        List<ProdottoShopBean> carrello = List.of(barretta);
 
         assertThrows(AcquistoException.class, () -> {
             shopController.finalizzaAcquisto(carrello, "MarioRossi", "");

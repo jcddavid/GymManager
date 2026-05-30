@@ -5,9 +5,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.logging.*;
 
 public abstract class SceneManager {
     private static Stage primaryStage;
+    private static final Logger logger = Logger.getLogger(SceneManager.class.getName());
 
     private SceneManager() { // Obbligato a farlo per bypassare il code smell di SonarCloud
         throw new IllegalStateException("Questa è una utility class!");
@@ -31,8 +33,7 @@ public abstract class SceneManager {
             primaryStage.setMaximized(true);
             primaryStage.show();
         } catch (IOException e) {
-            System.err.println("Errore nel caricamento della scena: " + fxml);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error changing the scene", e);
         }
     }
 }
