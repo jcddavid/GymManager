@@ -13,8 +13,8 @@ import java.util.logging.Logger;
 public class GestioneCorsiController {
 
     private static final Logger logger = Logger.getLogger(GestioneCorsiController.class.getName());
-    static final String ACCEPTEDSTR = "ACCEPTEDSTR";
-    static final String PENDINGSTR = "PENDINGSTR";
+    static final String ACCEPTEDSTR = "ACCEPTED";
+    static final String PENDINGSTR = "PENDING";
     
 
     public void creaCorso(String nomeCorso, String dataCorso, String istruttore) throws CorsoException {
