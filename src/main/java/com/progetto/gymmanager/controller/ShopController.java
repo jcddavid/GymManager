@@ -15,7 +15,7 @@ public class ShopController {
     public List<ProdottoShopBean> getProdottiDisponibili() {
         List<ProdottoShopBean> beans = new ArrayList<>();
         try {
-            for (Prodotto p : DAOFactory.getShopDAO().loadAllProdotti()) {
+            for (Prodotto p : DAOFactory.getDAOFactory().getShopDAO().loadAllProdotti()) {
                 ProdottoShopBean bean = new ProdottoShopBean();
                 bean.setNome(p.getNome());
                 bean.setPrezzo(p.getPrezzo());
@@ -40,7 +40,7 @@ public class ShopController {
 
     private double applicaSconto(double totale, String codice) {
         try {
-            for (CodiceSconto cs : DAOFactory.getShopDAO().loadAllSconti()) {
+            for (CodiceSconto cs : DAOFactory.getDAOFactory().getShopDAO().loadAllSconti()) {
                 if (cs.getCodice().equalsIgnoreCase(codice.trim())) {
                     return totale - (totale * cs.getPercentuale() / 100.0);
                 }

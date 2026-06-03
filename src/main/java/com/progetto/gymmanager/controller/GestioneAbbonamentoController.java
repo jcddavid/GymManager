@@ -35,7 +35,7 @@ public class GestioneAbbonamentoController {
             throw new AbbonamentoException("Il numero di mesi per il rinnovo deve essere maggiore di zero.");
         }
         try {
-            UserDAO dao = DAOFactory.getUserDAO();
+            UserDAO dao = DAOFactory.getDAOFactory().getUserDAO();
             User user = getUser(nickname);
 
             if (user == null) {
@@ -55,7 +55,7 @@ public class GestioneAbbonamentoController {
             dao.updateUser(user);
 
             SystemData.Notifica n = new SystemData.Notifica(nickname, "Abbonamento rinnovato con successo! Nuova scadenza: " + nuovaScadenza.toString());
-            DAOFactory.getShopDAO().saveNotifica(n);
+            DAOFactory.getDAOFactory().getShopDAO().saveNotifica(n);
             NotificationManager.getInstance().triggerNotifica();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Errore di persistenza durante il salvataggio del rinnovo.", e);
@@ -64,7 +64,7 @@ public class GestioneAbbonamentoController {
     }
 
     private User getUser(String nickname) throws IOException {
-        UserDAO dao = DAOFactory.getUserDAO();
+        UserDAO dao = DAOFactory.getDAOFactory().getUserDAO();
         User dummy = dao.findByNicknameAndPassword(nickname, "dummy");
 
         if (dummy == null && SessioneAttuale.getInstance().getCurrentUser() != null) {

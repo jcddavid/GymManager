@@ -22,7 +22,7 @@ public class GestioneCorsiController {
             throw new CorsoException("Il nome e la data del corso sono parametri obbligatori.");
         }
         try {
-            boolean esiste = DAOFactory.getCorsoDAO().findAllCorsi().stream().anyMatch(c -> c.getNome().equalsIgnoreCase(nomeCorso.trim()));
+            boolean esiste = DAOFactory.getDAOFactory().getCorsoDAO().findAllCorsi().stream().anyMatch(c -> c.getNome().equalsIgnoreCase(nomeCorso.trim()));
             if (esiste) {
                 throw new CorsoException("Esiste già un corso registrato con questo nome.");
             }
@@ -30,10 +30,10 @@ public class GestioneCorsiController {
             nuovoCorso.setNome(nomeCorso.trim());
             nuovoCorso.setData(dataCorso);
             nuovoCorso.setIstruttore(istruttore);
-            DAOFactory.getCorsoDAO().saveCorso(nuovoCorso);
+            DAOFactory.getDAOFactory().getCorsoDAO().saveCorso(nuovoCorso);
 
             SystemData.Notifica n = new SystemData.Notifica("TUTTI", "Nuovo corso: " + nomeCorso.trim() + " programmato per il " + dataCorso);
-            DAOFactory.getShopDAO().saveNotifica(n);
+            DAOFactory.getDAOFactory().getShopDAO().saveNotifica(n);
             NotificationManager.getInstance().triggerNotifica();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Errore persistente durante la creazione del corso.", e);
@@ -43,7 +43,7 @@ public class GestioneCorsiController {
 
     public List<CorsoBean> getCorsiDisponibili() throws CorsoException {
         try {
-            return DAOFactory.getCorsoDAO().findAllCorsi();
+            return DAOFactory.getDAOFactory().getCorsoDAO().findAllCorsi();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Impossibile recuperare l'elenco dei corsi dal database.", e);
             throw new CorsoException("Impossibile recuperare l'elenco dei corsi dal database.");
@@ -55,7 +55,7 @@ public class GestioneCorsiController {
             throw new CorsoException("Filtro istruttore non valido.");
         }
         try {
-            return DAOFactory.getCorsoDAO().findAllCorsi().stream()
+            return DAOFactory.getDAOFactory().getCorsoDAO().findAllCorsi().stream()
                     .filter(c -> c.getIstruttore().equalsIgnoreCase(nicknameIstruttore.trim()))
                     .toList();
         } catch (IOException e) {
@@ -69,16 +69,16 @@ public class GestioneCorsiController {
             throw new CorsoException("Dati incompleti per la modifica della data del corso.");
         }
         try {
-            CorsoBean trovato = DAOFactory.getCorsoDAO().findAllCorsi().stream()
+            CorsoBean trovato = DAOFactory.getDAOFactory().getCorsoDAO().findAllCorsi().stream()
                     .filter(c -> c.getNome().equalsIgnoreCase(nomeCorso.trim()) && c.getIstruttore().equalsIgnoreCase(nicknameIstruttore.trim()))
                     .findFirst()
                     .orElseThrow(() -> new CorsoException("Corso non trovato o non associato al tuo account."));
 
             trovato.setData(nuovaData);
-            DAOFactory.getCorsoDAO().updateCorso(trovato);
+            DAOFactory.getDAOFactory().getCorsoDAO().updateCorso(trovato);
 
             SystemData.Notifica n = new SystemData.Notifica("TUTTI", "La data del corso " + nomeCorso + " è cambiata al " + nuovaData);
-            DAOFactory.getShopDAO().saveNotifica(n);
+            DAOFactory.getDAOFactory().getShopDAO().saveNotifica(n);
             NotificationManager.getInstance().triggerNotifica();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Impossibile salvare le modifiche della data del corso.", e);
@@ -91,16 +91,16 @@ public class GestioneCorsiController {
             throw new CorsoException("Riferimenti corso o utente mancanti per l'iscrizione.");
         }
         try {
-            boolean giaRichiesto = DAOFactory.getCorsoDAO().findAllIscrizioni().stream()
+            boolean giaRichiesto = DAOFactory.getDAOFactory().getCorsoDAO().findAllIscrizioni().stream()
                     .anyMatch(i -> i.getCorso().equalsIgnoreCase(nomeCorso.trim()) && i.getAtleta().equalsIgnoreCase(nicknameUtente.trim()));
             if (giaRichiesto) {
                 throw new CorsoException("Hai già inviato una richiesta di iscrizione per questo corso.");
             }
             SystemData.Iscrizione nuovaIscrizione = new SystemData.Iscrizione(nicknameUtente.trim(), nomeCorso.trim());
-            DAOFactory.getCorsoDAO().saveIscrizione(nuovaIscrizione);
+            DAOFactory.getDAOFactory().getCorsoDAO().saveIscrizione(nuovaIscrizione);
 
             SystemData.Notifica n = new SystemData.Notifica("ISTRUTTORI", "Nuova richiesta iscrizione da " + nicknameUtente + " per " + nomeCorso);
-            DAOFactory.getShopDAO().saveNotifica(n);
+            DAOFactory.getDAOFactory().getShopDAO().saveNotifica(n);
             NotificationManager.getInstance().triggerNotifica();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Errore di rete nel salvataggio della richiesta di iscrizione.", e);
@@ -113,9 +113,9 @@ public class GestioneCorsiController {
             throw new CorsoException("Impossibile procedere alla disiscrizione: parametri errati.");
         }
         try {
-            DAOFactory.getCorsoDAO().deleteIscrizione(nomeCorso.trim(), nicknameUtente.trim());
+            DAOFactory.getDAOFactory().getCorsoDAO().deleteIscrizione(nomeCorso.trim(), nicknameUtente.trim());
             SystemData.Notifica n = new SystemData.Notifica("ISTRUTTORI", nicknameUtente + " si è cancellato dal corso " + nomeCorso);
-            DAOFactory.getShopDAO().saveNotifica(n);
+            DAOFactory.getDAOFactory().getShopDAO().saveNotifica(n);
             NotificationManager.getInstance().triggerNotifica();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Nessuna iscrizione o prenotazione trovata per i dati specificati.", e);
@@ -125,7 +125,7 @@ public class GestioneCorsiController {
 
     public List<String> getRichiestePendenti() throws CorsoException {
         try {
-            return DAOFactory.getCorsoDAO().findAllIscrizioni().stream()
+            return DAOFactory.getDAOFactory().getCorsoDAO().findAllIscrizioni().stream()
                     .filter(i -> PENDINGSTR.equals(i.getStato()))
                     .map(i -> i.getAtleta() + " -> " + i.getCorso())
                     .toList();
@@ -143,14 +143,14 @@ public class GestioneCorsiController {
         String atleta = parts[0].trim();
         String corso = parts[1].trim();
         try {
-            List<SystemData.Iscrizione> tutte = DAOFactory.getCorsoDAO().findAllIscrizioni();
+            List<SystemData.Iscrizione> tutte = DAOFactory.getDAOFactory().getCorsoDAO().findAllIscrizioni();
             for (SystemData.Iscrizione i : tutte) {
                 if (i.getAtleta().equalsIgnoreCase(atleta) && i.getCorso().equalsIgnoreCase(corso) && PENDINGSTR.equals(i.getStato())) {
                     i.setStato(approva ? ACCEPTEDSTR : "REJECTED");
-                    DAOFactory.getCorsoDAO().updateIscrizione(i);
+                    DAOFactory.getDAOFactory().getCorsoDAO().updateIscrizione(i);
                     String esito = approva ? "approvata" : "rifiutata";
                     SystemData.Notifica n = new SystemData.Notifica(atleta, "La tua richiesta per il corso " + corso + " è stata " + esito);
-                    DAOFactory.getShopDAO().saveNotifica(n);
+                    DAOFactory.getDAOFactory().getShopDAO().saveNotifica(n);
                     break;
                 }
             }
@@ -166,16 +166,16 @@ public class GestioneCorsiController {
             throw new CorsoException("Selezionare un corso valido da eliminare.");
         }
         try {
-            DAOFactory.getCorsoDAO().deleteCorso(nomeCorso.trim());
-            List<SystemData.Iscrizione> iscritti = DAOFactory.getCorsoDAO().findAllIscrizioni().stream()
+            DAOFactory.getDAOFactory().getCorsoDAO().deleteCorso(nomeCorso.trim());
+            List<SystemData.Iscrizione> iscritti = DAOFactory.getDAOFactory().getCorsoDAO().findAllIscrizioni().stream()
                     .filter(i -> i.getCorso().equalsIgnoreCase(nomeCorso.trim())).toList();
 
             for (SystemData.Iscrizione i : iscritti) {
                 if (ACCEPTEDSTR.equals(i.getStato()) || PENDINGSTR.equals(i.getStato())) {
                     SystemData.Notifica n = new SystemData.Notifica(i.getAtleta(), "Il corso " + nomeCorso + " è stato annullato dall'istruttore.");
-                    DAOFactory.getShopDAO().saveNotifica(n);
+                    DAOFactory.getDAOFactory().getShopDAO().saveNotifica(n);
                 }
-                DAOFactory.getCorsoDAO().deleteIscrizione(nomeCorso.trim(), i.getAtleta());
+                DAOFactory.getDAOFactory().getCorsoDAO().deleteIscrizione(nomeCorso.trim(), i.getAtleta());
             }
             NotificationManager.getInstance().triggerNotifica();
         } catch (IOException e) {
@@ -189,7 +189,7 @@ public class GestioneCorsiController {
             throw new CorsoException("Specificare un corso per estrarre gli iscritti.");
         }
         try {
-            return DAOFactory.getCorsoDAO().findAllIscrizioni().stream()
+            return DAOFactory.getDAOFactory().getCorsoDAO().findAllIscrizioni().stream()
                     .filter(i -> i.getCorso().equalsIgnoreCase(nomeCorso.trim()) && ACCEPTEDSTR.equals(i.getStato()))
                     .map(i -> i.getAtleta())
                     .toList();

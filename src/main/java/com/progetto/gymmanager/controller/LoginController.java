@@ -18,7 +18,7 @@ public class LoginController {
             throw new LoginException("Nickname e password sono campi obbligatori.");
         }
         try {
-            UserDAO dao = DAOFactory.getUserDAO();
+            UserDAO dao = DAOFactory.getDAOFactory().getUserDAO();
             User user = dao.findByNicknameAndPassword(creds.getNickname().trim(), creds.getPassword());
             if (user == null) {
                 throw new LoginException("Credenziali errate. Riprova.");
@@ -39,7 +39,7 @@ public class LoginController {
         }
         validaDatiRegistrazione(regBean);
         try {
-            UserDAO dao = DAOFactory.getUserDAO();
+            UserDAO dao = DAOFactory.getDAOFactory().getUserDAO();
             if (dao.existsNickname(regBean.getNickname().trim())) {
                 throw new LoginException("Il nickname inserito è già utilizzato da un altro utente.");
             }

@@ -20,7 +20,7 @@ public class GestioneProfiloController {
         user.setDataNascita(bean.getDataNascita());
         user.setEmail(bean.getEmail());
 
-        DAOFactory.getUserDAO().updateUser(user);
+        DAOFactory.getDAOFactory().getUserDAO().updateUser(user);
     }
 
     public String generaQrCodeAccesso() throws AbbonamentoException {

@@ -9,14 +9,15 @@ import com.progetto.gymmanager.persistence.mysql.*;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class DAOFactory {
+
+public abstract class DAOFactory {
     private static final String MEMORY = "MEMORY";
     private static final String MYSQL = "MYSQL";
     private static final String FS = "FS";
     private static final String SER = "SER";
     private static String persistenceType = MEMORY;
 
-    static {
+    public static DAOFactory getDAOFactory() {
         try (InputStream input = DAOFactory.class.getResourceAsStream("/config.properties")) {
             if (input != null) {
                 Properties prop = new Properties();
@@ -26,35 +27,23 @@ public class DAOFactory {
         } catch (Exception ignored) {
             persistenceType = MEMORY;
         }
+        switch (persistenceType) {
+            case FS:
+                return new FileSystemDAO();
+            case SER:
+                return new SerializableDAO();
+            case MYSQL:
+                return new MySQLDAO();
+            default:
+                return new MemoryDAO();
+        }
     }
 
-    private DAOFactory() {}
+    public abstract UserDAO getUserDAO();
 
-    public static UserDAO getUserDAO() {
-        if (MYSQL.equalsIgnoreCase(persistenceType)) return new MySQLUserDAO();
-        if (FS.equalsIgnoreCase(persistenceType)) return new FileSystemUserDAO();
-        if (SER.equalsIgnoreCase(persistenceType)) return new SerializableUserDAO();
-        return new MemoryUserDAO();
-    }
+    public abstract CorsoDAO getCorsoDAO();
 
-    public static CorsoDAO getCorsoDAO() {
-        if (MYSQL.equalsIgnoreCase(persistenceType)) return new MySQLCorsoDAO();
-        if (FS.equalsIgnoreCase(persistenceType)) return new FileSystemCorsoDAO();
-        if (SER.equalsIgnoreCase(persistenceType)) return new SerializableCorsoDAO();
-        return new MemoryCorsoDAO();
-    }
+    public abstract SchedaDAO getSchedaDAO();
 
-    public static SchedaDAO getSchedaDAO() {
-        if (MYSQL.equalsIgnoreCase(persistenceType)) return new MySQLSchedaDAO();
-        if (FS.equalsIgnoreCase(persistenceType)) return new FileSystemSchedaDAO();
-        if (SER.equalsIgnoreCase(persistenceType)) return new SerializableSchedaDAO();
-        return new MemorySchedaDAO();
-    }
-
-    public static ShopDAO getShopDAO() {
-        if (MYSQL.equalsIgnoreCase(persistenceType)) return new MySQLShopDAO();
-        if (FS.equalsIgnoreCase(persistenceType)) return new FileSystemShopDAO();
-        if (SER.equalsIgnoreCase(persistenceType)) return new SerializableShopDAO();
-        return new MemoryShopDAO();
-    }
+    public abstract ShopDAO getShopDAO();
 }

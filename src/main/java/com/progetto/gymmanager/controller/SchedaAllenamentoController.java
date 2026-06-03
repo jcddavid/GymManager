@@ -22,7 +22,7 @@ public class SchedaAllenamentoController {
             throw new SchedaException("Riferimento nickname utente non valido.");
         }
         try {
-            SchedaDAO dao = DAOFactory.getSchedaDAO();
+            SchedaDAO dao = DAOFactory.getDAOFactory().getSchedaDAO();
             List<SchedaAllenamento> schede = dao.findSchedeByUtente(nickname.trim());
             List<SchedaAllenamentoBean> beans = new ArrayList<>();
 
@@ -55,7 +55,7 @@ public class SchedaAllenamentoController {
         }
         try {
             SchedaAllenamento schedaVuota = new SchedaAllenamento(nicknameUtente.trim(), "Auto-Gestita", nomeScheda.trim(), new ArrayList<>());
-            DAOFactory.getSchedaDAO().saveScheda(schedaVuota);
+            DAOFactory.getDAOFactory().getSchedaDAO().saveScheda(schedaVuota);
         } catch (IOException e) {
             throw new SchedaException("Impossibile creare la scheda personale causa errore IO.");
         }
@@ -68,10 +68,10 @@ public class SchedaAllenamentoController {
         try {
             SchedaAllenamento schedaVuota = new SchedaAllenamento(nicknameUtente.trim(), DA_ASSEGNARE, nomeScheda.trim(), new ArrayList<>());
             schedaVuota.setNote(note != null ? note.trim() : "");
-            DAOFactory.getSchedaDAO().saveScheda(schedaVuota);
+            DAOFactory.getDAOFactory().getSchedaDAO().saveScheda(schedaVuota);
 
             SystemData.Notifica n = new SystemData.Notifica("ISTRUTTORI", "Nuova richiesta scheda da: " + nicknameUtente);
-            DAOFactory.getShopDAO().saveNotifica(n);
+            DAOFactory.getDAOFactory().getShopDAO().saveNotifica(n);
             NotificationManager.getInstance().triggerNotifica();
         } catch (IOException e) {
             throw new SchedaException("Impossibile inoltrare la richiesta della scheda causa errore IO.");
@@ -80,7 +80,7 @@ public class SchedaAllenamentoController {
 
     public List<SchedaAllenamentoBean> ottieniRichiestePendenti() throws SchedaException {
         try {
-            List<SchedaAllenamento> tutte = DAOFactory.getSchedaDAO().findAllSchede();
+            List<SchedaAllenamento> tutte = DAOFactory.getDAOFactory().getSchedaDAO().findAllSchede();
             List<SchedaAllenamentoBean> beans = new ArrayList<>();
 
             for (SchedaAllenamento s : tutte) {
@@ -103,7 +103,7 @@ public class SchedaAllenamentoController {
             throw new SchedaException("Impossibile compilare e salvare una scheda priva di esercizi.");
         }
         try {
-            SchedaDAO dao = DAOFactory.getSchedaDAO();
+            SchedaDAO dao = DAOFactory.getDAOFactory().getSchedaDAO();
             List<Esercizio> listaModello = new ArrayList<>();
             for (EsercizioBean eb : bean.getEsercizi()) {
                 listaModello.add(new Esercizio(eb.getNome(), eb.getSerie(), eb.getRipetizioni(), eb.getCarico()));
@@ -113,7 +113,7 @@ public class SchedaAllenamentoController {
             dao.saveScheda(scheda);
 
             SystemData.Notifica n = new SystemData.Notifica(bean.getNicknameAtleta(), "L'istruttore " + bean.getNicknameIstruttore() + " ha completato la tua scheda: " + bean.getNomeScheda());
-            DAOFactory.getShopDAO().saveNotifica(n);
+            DAOFactory.getDAOFactory().getShopDAO().saveNotifica(n);
             NotificationManager.getInstance().triggerNotifica();
         } catch (IOException e) {
             throw new SchedaException("Errore di sistema nel salvataggio della scheda compilata.");
@@ -125,7 +125,7 @@ public class SchedaAllenamentoController {
             throw new SchedaException("La scheda deve possedere un nome valido.");
         }
         try {
-            SchedaDAO schedaDAO = DAOFactory.getSchedaDAO();
+            SchedaDAO schedaDAO = DAOFactory.getDAOFactory().getSchedaDAO();
             List<Esercizio> listaModello = new ArrayList<>();
             for (EsercizioBean eb : bean.getEsercizi()) {
                 listaModello.add(new Esercizio(eb.getNome(), eb.getSerie(), eb.getRipetizioni(), eb.getCarico()));
@@ -146,7 +146,7 @@ public class SchedaAllenamentoController {
             throw new SchedaException("Selezionare una scheda valida ai fini dell'eliminazione.");
         }
         try {
-            DAOFactory.getSchedaDAO().deleteScheda(nickname, nomeScheda.trim());
+            DAOFactory.getDAOFactory().getSchedaDAO().deleteScheda(nickname, nomeScheda.trim());
         } catch (IOException e) {
             throw new SchedaException("Errore tecnico durante l'eliminazione fisica della scheda.");
         }

@@ -18,7 +18,7 @@ public class AmministratoreController {
     private static final Logger logger = Logger.getLogger(AmministratoreController.class.getName());
 
     public List<String> getListaIstruttori() throws IOException {
-        return DAOFactory.getUserDAO().findUsersByRole("ISTRUTTORE")
+        return DAOFactory.getDAOFactory().getUserDAO().findUsersByRole("ISTRUTTORE")
                 .stream()
                 .map(u -> u.getNickname() + " - " + u.getEmail())
                 .toList();
@@ -28,7 +28,7 @@ public class AmministratoreController {
         if (nickname == null || nickname.trim().isEmpty()) {
             throw new IllegalArgumentException("Seleziona un istruttore.");
         }
-        DAOFactory.getUserDAO().deleteUser(nickname);
+        DAOFactory.getDAOFactory().getUserDAO().deleteUser(nickname);
     }
 
     public void creaIstruttore(RegistrationBean regBean) throws LoginException {
@@ -41,7 +41,7 @@ public class AmministratoreController {
             throw new IllegalArgumentException("Dati prodotto non validi.");
         }
         try {
-            DAOFactory.getShopDAO().saveProdotto(new Prodotto(nome.trim(), prezzo));
+            DAOFactory.getDAOFactory().getShopDAO().saveProdotto(new Prodotto(nome.trim(), prezzo));
             inviaComunicazione("TUTTI", "Novità nello shop! E' ora disponibile: " + nome);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Errore di persistenza durante l'aggiunta del prodotto", e);
@@ -50,7 +50,7 @@ public class AmministratoreController {
 
     public List<String> getListaSconti() {
         try {
-            return DAOFactory.getShopDAO().loadAllSconti().stream()
+            return DAOFactory.getDAOFactory().getShopDAO().loadAllSconti().stream()
                     .map(c -> c.getCodice() + " (" + c.getPercentuale() + "%)")
                     .toList();
         } catch (IOException e) {
@@ -64,7 +64,7 @@ public class AmministratoreController {
             throw new IllegalArgumentException("Codice non valido o percentuale fuori range.");
         }
         try {
-            DAOFactory.getShopDAO().saveSconto(new CodiceSconto(codice.trim().toUpperCase(), percentuale));
+            DAOFactory.getDAOFactory().getShopDAO().saveSconto(new CodiceSconto(codice.trim().toUpperCase(), percentuale));
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Errore durante il salvataggio del codice sconto", e);
         }
@@ -75,7 +75,7 @@ public class AmministratoreController {
             throw new IllegalArgumentException("Seleziona un codice sconto.");
         }
         try {
-            DAOFactory.getShopDAO().deleteSconto(codice.trim());
+            DAOFactory.getDAOFactory().getShopDAO().deleteSconto(codice.trim());
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Errore durante l'eliminazione del codice sconto", e);
         }
@@ -87,7 +87,7 @@ public class AmministratoreController {
         }
         try {
             SystemData.Notifica n = new SystemData.Notifica("AMMINISTRATORE", "Ordine di " + quantita + "x " + prodotto + " inviato con successo a: " + fornitore);
-            DAOFactory.getShopDAO().saveNotifica(n);
+            DAOFactory.getDAOFactory().getShopDAO().saveNotifica(n);
             NotificationManager.getInstance().triggerNotifica();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Errore durante il salvataggio della notifica di rifornimento", e);
@@ -100,7 +100,7 @@ public class AmministratoreController {
         }
         try {
             SystemData.Notifica n = new SystemData.Notifica(targetRuolo.toUpperCase(), "COMUNICAZIONE ADMIN: " + messaggio.trim());
-            DAOFactory.getShopDAO().saveNotifica(n);
+            DAOFactory.getDAOFactory().getShopDAO().saveNotifica(n);
             NotificationManager.getInstance().triggerNotifica();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Errore durante l'invio della comunicazione broadcast", e);

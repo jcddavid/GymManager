@@ -14,7 +14,7 @@ public class NotificheController {
     public List<String> getNotificheUtente(String nickname, String ruolo) {
         List<String> messaggi = new ArrayList<>();
         try {
-            List<SystemData.Notifica> filtrate = DAOFactory.getShopDAO().loadAllNotifiche().stream()
+            List<SystemData.Notifica> filtrate = DAOFactory.getDAOFactory().getShopDAO().loadAllNotifiche().stream()
                     .filter(n -> n.getUtenteDestinatario().equalsIgnoreCase(nickname)
                             || n.getUtenteDestinatario().equals("TUTTI")
                             || (ruolo.equals("ABBONATO") && n.getUtenteDestinatario().equals("ABBONATI"))
@@ -26,7 +26,7 @@ public class NotificheController {
                 messaggi.add(n.getMessaggio());
                 if (!n.getLettaDa().contains(nickname + ";")) {
                     n.setLettaDa(n.getLettaDa() + nickname + ";");
-                    DAOFactory.getShopDAO().updateNotifica(n);
+                    DAOFactory.getDAOFactory().getShopDAO().updateNotifica(n);
                 }
             }
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class NotificheController {
 
     public int contaNotificheNonLette(String nickname, String ruolo) {
         try {
-            return (int) DAOFactory.getShopDAO().loadAllNotifiche().stream()
+            return (int) DAOFactory.getDAOFactory().getShopDAO().loadAllNotifiche().stream()
                     .filter(n -> !n.getLettaDa().contains(nickname + ";"))
                     .filter(n -> n.getUtenteDestinatario().equalsIgnoreCase(nickname)
                             || n.getUtenteDestinatario().equals("TUTTI")
