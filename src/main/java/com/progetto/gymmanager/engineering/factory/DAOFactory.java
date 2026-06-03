@@ -29,13 +29,13 @@ public abstract class DAOFactory {
         }
         switch (persistenceType) {
             case FS:
-                return new FileSystemDAO();
+                return new FileSystemDAOFactory();
             case SER:
-                return new SerializableDAO();
+                return new SerializableDAOFactory();
             case MYSQL:
-                return new MySQLDAO();
+                return new MySQLDAOFactory();
             default:
-                return new MemoryDAO();
+                return new MemoryDAOFactory();
         }
     }
 

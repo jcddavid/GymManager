@@ -6,7 +6,7 @@ import com.progetto.gymmanager.persistence.dao.SchedaDAO;
 import com.progetto.gymmanager.persistence.dao.ShopDAO;
 import com.progetto.gymmanager.persistence.dao.UserDAO;
 
-public class MySQLDAO extends DAOFactory {
+public class MySQLDAOFactory extends DAOFactory {
     @Override
     public UserDAO getUserDAO() {
         return new MySQLUserDAO();

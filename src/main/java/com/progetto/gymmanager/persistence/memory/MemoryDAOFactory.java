@@ -1,4 +1,4 @@
-package com.progetto.gymmanager.persistence.ser;
+package com.progetto.gymmanager.persistence.memory;
 
 import com.progetto.gymmanager.engineering.factory.DAOFactory;
 import com.progetto.gymmanager.persistence.dao.CorsoDAO;
@@ -6,24 +6,24 @@ import com.progetto.gymmanager.persistence.dao.SchedaDAO;
 import com.progetto.gymmanager.persistence.dao.ShopDAO;
 import com.progetto.gymmanager.persistence.dao.UserDAO;
 
-public class SerializableDAO extends DAOFactory {
+public class MemoryDAOFactory extends DAOFactory {
     @Override
     public UserDAO getUserDAO() {
-        return new SerializableUserDAO();
+        return new MemoryUserDAO();
     }
 
     @Override
     public CorsoDAO getCorsoDAO() {
-        return new SerializableCorsoDAO();
+        return new MemoryCorsoDAO();
     }
 
     @Override
     public SchedaDAO getSchedaDAO() {
-        return new SerializableSchedaDAO();
+        return new MemorySchedaDAO();
     }
 
     @Override
     public ShopDAO getShopDAO() {
-        return new SerializableShopDAO();
+        return new MemoryShopDAO();
     }
 }
