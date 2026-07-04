@@ -26,14 +26,14 @@ public class User implements Serializable {
         this.indirizzo = indirizzo;
         this.telefono = telefono;
         this.dataNascita = dataNascita;
-        this.dataScadenzaAbbonamento = LocalDate.now().minusDays(1);
+        this.dataScadenzaAbbonamento = LocalDate.now(ZoneId.systemDefault())().minusDays(1);
     }
 
     public boolean haAccessoPalestra() {
         if (this.ruolo == RuoloUtente.ISTRUTTORE || this.ruolo == RuoloUtente.AMMINISTRATORE) {
             return true;
         }
-        return dataScadenzaAbbonamento != null && !dataScadenzaAbbonamento.isBefore(LocalDate.now());
+        return dataScadenzaAbbonamento != null && !dataScadenzaAbbonamento.isBefore(LocalDate.now(ZoneId.systemDefault())());
     }
 
     public String generaTokenAccesso() throws AbbonamentoException {
@@ -50,7 +50,7 @@ public class User implements Serializable {
         if (!haAccessoPalestra()) {
             return "SCADUTO";
         }
-        long giorniRimanenti = ChronoUnit.DAYS.between(LocalDate.now(), this.dataScadenzaAbbonamento);
+        long giorniRimanenti = ChronoUnit.DAYS.between(LocalDate.now(ZoneId.systemDefault())(), this.dataScadenzaAbbonamento);
         return "ATTIVO fino al " + this.dataScadenzaAbbonamento.toString() + " (" + giorniRimanenti + " giorni rimanenti)";
     }
 

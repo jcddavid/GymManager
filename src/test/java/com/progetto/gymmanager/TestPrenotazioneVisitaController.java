@@ -18,7 +18,7 @@ class TestPrenotazioneVisitaController {
 
     @Test
     void testPrenotaVisitaDataPassata() {
-        String dataPassata = LocalDate.now().minusDays(5).toString();
+        String dataPassata = LocalDate.now(ZoneId.systemDefault())().minusDays(5).toString();
 
         assertThrows(PrenotazioneException.class, () -> {
             visitaController.prenotaVisita(dataPassata, "10:00", "UtenteTest");

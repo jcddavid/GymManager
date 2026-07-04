@@ -45,8 +45,8 @@ public class GestioneAbbonamentoController {
             LocalDate scadenzaAttuale = user.getDataScadenzaAbbonamento();
             LocalDate nuovaScadenza;
 
-            if (scadenzaAttuale == null || scadenzaAttuale.isBefore(LocalDate.now())) {
-                nuovaScadenza = LocalDate.now().plusMonths(mesi);
+            if (scadenzaAttuale == null || scadenzaAttuale.isBefore(LocalDate.now(ZoneId.systemDefault())())) {
+                nuovaScadenza = LocalDate.now(ZoneId.systemDefault())().plusMonths(mesi);
             } else {
                 nuovaScadenza = scadenzaAttuale.plusMonths(mesi);
             }

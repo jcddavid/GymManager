@@ -27,7 +27,7 @@ public class PrenotazioneVisitaController {
             throw new PrenotazioneException("Il formato della data non è valido. Usa il calendario.");
         }
 
-        if (dataPrenotazione.isBefore(LocalDate.now())) {
+        if (dataPrenotazione.isBefore(LocalDate.now(ZoneId.systemDefault())())) {
             throw new PrenotazioneException("Impossibile prenotare una visita medica nel passato.");
         }
         if (dataPrenotazione.getDayOfWeek() == DayOfWeek.SUNDAY) {
